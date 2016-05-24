@@ -27,14 +27,14 @@ public class UserDAOImpl extends AbstractDao<Integer, User> implements UserDAO{
 
 	@Override
 	public User findByUsername(String username) {
-        logger.info("findByUsername - Username : {}", username);
-        Criteria crit = createEntityCriteria();
-        crit.add(Restrictions.eq("USERNAME", username));
-        User user = (User)crit.uniqueResult();
-        if(user!=null){
-            Hibernate.initialize(user.getRoles());
-        }
-        return user;
+		logger.info("findByUsername - Username : {}", username);
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("username", username));
+		User user = (User)crit.uniqueResult();
+		if(user!=null){
+			Hibernate.initialize(user.getRoles());
+		}
+		return user;
 	}
 
 	@Override
@@ -44,27 +44,27 @@ public class UserDAOImpl extends AbstractDao<Integer, User> implements UserDAO{
 
 	@Override
 	public void deleteByUsername(String username) {
-        Criteria crit = createEntityCriteria();
-        crit.add(Restrictions.eq("username", username));
-        User user = (User)crit.uniqueResult();
-        delete(user);
+		Criteria crit = createEntityCriteria();
+		crit.add(Restrictions.eq("username", username));
+		User user = (User)crit.uniqueResult();
+		delete(user);
 
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findAllUsers() {
-        Criteria criteria = createEntityCriteria().addOrder(Order.asc("firstName"));
-        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
-        List<User> users = (List<User>) criteria.list();
-         
-        // No need to fetch userProfiles since we are not showing them on list page. Let them lazy load. 
-        // Uncomment below lines for eagerly fetching of userProfiles if you want.
-        /*
+		Criteria criteria = createEntityCriteria().addOrder(Order.asc("firstName"));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);//To avoid duplicates.
+		List<User> users = (List<User>) criteria.list();
+
+		// No need to fetch userProfiles since we are not showing them on list page. Let them lazy load. 
+		// Uncomment below lines for eagerly fetching of userProfiles if you want.
+		/*
         for(User user : users){
             Hibernate.initialize(user.getUserProfiles());
         }*/
-        return users;
+		return users;
 	}
 
 }
