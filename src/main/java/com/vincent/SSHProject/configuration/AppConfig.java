@@ -31,7 +31,7 @@ public class AppConfig extends WebMvcConfigurerAdapter{
      
  
     /**
-     * Configure ViewResolvers to deliver preferred views.test
+     * Configure ViewResolvers to deliver preferred views.
      */
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
