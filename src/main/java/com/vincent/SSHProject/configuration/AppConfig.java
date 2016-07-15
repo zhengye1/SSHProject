@@ -1,7 +1,5 @@
 package com.vincent.SSHProject.configuration;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -23,19 +21,15 @@ import com.vincent.SSHProject.converter.RoleToUserRoleConverter;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.vincent.SSHProject")
 public class AppConfig extends WebMvcConfigurerAdapter{
-	
-	static final Logger logger = LoggerFactory.getLogger(AppConfig.class);
      
     @Autowired
     RoleToUserRoleConverter roleToUserProfileConverter;
-     
- 
+    
     /**
      * Configure ViewResolvers to deliver preferred views.
      */
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
-    	logger.info("AppConfig - configureViewResolvers");
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setViewClass(JstlView.class);
         viewResolver.setPrefix("/WEB-INF/views/");
@@ -48,7 +42,6 @@ public class AppConfig extends WebMvcConfigurerAdapter{
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        logger.info("AppConfig - addResourceHandlers");
     	registry.addResourceHandler("/static/**").addResourceLocations("/static/");
     }
      
@@ -58,17 +51,14 @@ public class AppConfig extends WebMvcConfigurerAdapter{
      */
     @Override
     public void addFormatters(FormatterRegistry registry) {
-    	logger.info("AppConfig - addFormatter");
         registry.addConverter(roleToUserProfileConverter);
     }
-     
- 
+    
     /**
      * Configure MessageSource to lookup any validation/error message in internationalized property files
      */
     @Bean
     public MessageSource messageSource() {
-    	logger.info("AppConfig - messageSource");
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("messages");
         return messageSource;
@@ -80,7 +70,6 @@ public class AppConfig extends WebMvcConfigurerAdapter{
      */
     @Override
     public void configurePathMatch(PathMatchConfigurer matcher) {
-    	logger.info("AppConfig - configurePathMatch");
         matcher.setUseRegisteredSuffixPatternMatch(true);
     }
 }

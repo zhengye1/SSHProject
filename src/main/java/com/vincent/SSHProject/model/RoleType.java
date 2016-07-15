@@ -8,6 +8,7 @@ public enum RoleType implements Serializable{
 	ADMIN("ADMIN");
 	
 	String roleType;
+	
 	private RoleType(String roleType){
 		this.roleType = roleType;
 	}
