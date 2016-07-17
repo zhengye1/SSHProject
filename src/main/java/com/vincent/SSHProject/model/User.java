@@ -13,8 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.persistence.JoinColumn;
+
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="USER")
@@ -48,7 +53,13 @@ public class User implements Serializable{
     @Column(name="EMAIL", nullable=false)
     private String email;
     
-    @NotEmpty
+    @NotNull
+    @DateTimeFormat(pattern="dd/MM/yyyy") 
+    @Column(name = "DATEOFBIRTH", nullable = false)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+    private LocalDate dateOfBirth;
+    
+	@NotEmpty
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "USERROLE", 
              joinColumns = { @JoinColumn(name = "USER_UID") }, 
@@ -110,7 +121,14 @@ public class User implements Serializable{
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
+	
+    public LocalDate getDateOfBirth() {
+		return dateOfBirth;
+	}
 
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -192,8 +210,8 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", email=" + email + ", roles=" + roles + "]";
+				+ ", lastName=" + lastName + ", email=" + email + ", date of birth: " + dateOfBirth +
+				", roles=" + roles + "]";
 	}
-    
-    
+       
 }
