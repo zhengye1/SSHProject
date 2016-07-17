@@ -22,7 +22,7 @@ import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="USER")
+@Table(name="USER2")
 public class User implements Serializable{
 
 	/**
@@ -61,7 +61,7 @@ public class User implements Serializable{
     
 	@NotEmpty
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "USERROLE", 
+    @JoinTable(name = "USERROLE2", 
              joinColumns = { @JoinColumn(name = "USER_UID") }, 
              inverseJoinColumns = { @JoinColumn(name = "ROLE_RID") })
     private Set<Role> roles = new HashSet<Role>();
@@ -209,7 +209,7 @@ public class User implements Serializable{
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
+		return "User [id=" + id + ", username=" + username + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", email=" + email + ", date of birth: " + dateOfBirth +
 				", roles=" + roles + "]";
 	}
