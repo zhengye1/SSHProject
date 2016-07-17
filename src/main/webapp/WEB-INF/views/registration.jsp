@@ -112,7 +112,7 @@
 						Of Birth</label>
 					<div class="col-md-7">
 						<form:input type="text" path="dateOfBirth" id="dateOfBirth"
-							class="form-control input-sm" />
+							class="form-control input-sm dateOfBirth" />
 						<div class="has-error">
 							<form:errors path="dateOfBirth" class="help-inline" />
 						</div>
