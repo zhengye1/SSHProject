@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.vincent.SSHProject.model.Department;
 import com.vincent.SSHProject.model.Role;
 import com.vincent.SSHProject.model.User;
+import com.vincent.SSHProject.service.DepartmentService;
 import com.vincent.SSHProject.service.RoleService;
 import com.vincent.SSHProject.service.UserService;
 
@@ -40,6 +42,9 @@ public class AppController {
 	
 	@Autowired
 	RoleService roleService;
+	
+	@Autowired
+	DepartmentService departmentService;
 	
 	@Autowired
 	MessageSource messageSource;
@@ -163,7 +168,11 @@ public class AppController {
 	public List<Role> initializeProfiles() throws Exception {
 		return roleService.findAll();
 	}
-	
+
+	@ModelAttribute("departments")
+	public List<Department> initializeDepartments() throws Exception {
+		return departmentService.findAll();
+	}
     /**
      * This method handles Access-Denied redirect.
      */

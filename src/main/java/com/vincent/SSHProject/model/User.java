@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.persistence.JoinColumn;
@@ -22,7 +23,7 @@ import org.joda.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="USER2")
+@Table(name="USER")
 public class User implements Serializable{
 
 	/**
@@ -61,11 +62,15 @@ public class User implements Serializable{
     
 	@NotEmpty
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "USERROLE2", 
+    @JoinTable(name = "USERROLE", 
              joinColumns = { @JoinColumn(name = "USER_UID") }, 
              inverseJoinColumns = { @JoinColumn(name = "ROLE_RID") })
     private Set<Role> roles = new HashSet<Role>();
 
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="depId")
+	private Department department;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -129,6 +134,15 @@ public class User implements Serializable{
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+	
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -211,7 +225,7 @@ public class User implements Serializable{
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", email=" + email + ", date of birth: " + dateOfBirth +
-				", roles=" + roles + "]";
+				", roles=" + roles + "]" + ", department=" + department;
 	}
        
 }

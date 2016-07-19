@@ -120,6 +120,23 @@
 				</div>
 			</div>
 
+<%-- 			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-3 control-lable" for="departments">Department</label>
+					<div class="col-md-7">
+					<form:select path="departments">
+						<option value="-1">Select Department</option>
+						<c:forEach items="${departments}">
+							<option value="id">${department.name}</option>
+						</c:forEach>
+					</form:select>
+						<div class="has-error">
+							<form:errors path="departments" class="help-inline" />
+						</div>
+					</div>
+				</div>
+			</div> --%>
+			
 			<div class="row">
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="roles">Roles</label>
