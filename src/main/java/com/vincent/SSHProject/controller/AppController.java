@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -34,7 +36,7 @@ import com.vincent.SSHProject.service.UserService;
 
 @Controller
 @RequestMapping("/")
-@SessionAttributes("roles")
+@SessionAttributes({"roles", "departments"})
 public class AppController {
 	
 	@Autowired
@@ -54,6 +56,8 @@ public class AppController {
 	
 	@Autowired
 	AuthenticationTrustResolver authenticationTrustResolver;
+	
+	static final Logger logger = LoggerFactory.getLogger(AppController.class);
 	
     /**
      * This method will list all existing users.
@@ -145,6 +149,7 @@ public class AppController {
         }*/
  
  
+        logger.info("From controller: User: {}", user);
         userService.updateUser(user);
  
         model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " updated successfully");

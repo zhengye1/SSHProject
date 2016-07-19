@@ -21,6 +21,7 @@ public class UserDAOImpl extends AbstractDao<Integer, User> implements UserDAO{
 		User user = getByKey(id);
 		if(user!=null){
 			Hibernate.initialize(user.getRoles());
+			Hibernate.initialize(user.getDepartment());
 		}
 		return user;
 	}
@@ -33,6 +34,7 @@ public class UserDAOImpl extends AbstractDao<Integer, User> implements UserDAO{
 		User user = (User)crit.uniqueResult();
 		if(user!=null){
 			Hibernate.initialize(user.getRoles());
+			Hibernate.initialize(user.getDepartment());
 		}
 		return user;
 	}

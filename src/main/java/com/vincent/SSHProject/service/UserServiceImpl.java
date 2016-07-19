@@ -2,6 +2,8 @@ package com.vincent.SSHProject.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import com.vincent.SSHProject.model.User;
 @Transactional
 public class UserServiceImpl implements UserService{
 
+	static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	@Autowired
 	private UserDAO userDAO;
 
@@ -55,6 +58,8 @@ public class UserServiceImpl implements UserService{
 			entity.setLastName(user.getLastName());
 			entity.setEmail(user.getEmail());
 			entity.setRoles(user.getRoles());
+			entity.setDateOfBirth(user.getDateOfBirth());
+			entity.setDepartment(user.getDepartment());
 		}
 
 	}

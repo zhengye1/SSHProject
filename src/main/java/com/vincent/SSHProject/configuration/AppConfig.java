@@ -15,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import com.vincent.SSHProject.converter.DepartmentConverter;
 import com.vincent.SSHProject.converter.RoleToUserRoleConverter;
 
 @Configuration
@@ -24,6 +25,9 @@ public class AppConfig extends WebMvcConfigurerAdapter{
      
     @Autowired
     RoleToUserRoleConverter roleToUserProfileConverter;
+    
+    @Autowired
+    DepartmentConverter departmentConverter;
     
     /**
      * Configure ViewResolvers to deliver preferred views.
@@ -52,6 +56,7 @@ public class AppConfig extends WebMvcConfigurerAdapter{
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(roleToUserProfileConverter);
+        registry.addConverter(departmentConverter);
     }
     
     /**

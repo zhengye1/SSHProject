@@ -7,19 +7,24 @@
 <html>
 
 <head>
-<meta name="viewpoint" http-equiv="Content-Type" content="text/html; charset=ISO-8859-1; width=device-width, initial-scale=1">
+<meta name="viewpoint" http-equiv="Content-Type"
+	content="text/html; charset=ISO-8859-1; width=device-width, initial-scale=1">
 <title>User Registration Form</title>
 <link href="<c:url value='/static/css/bootstrap.min.css' />"
 	rel="stylesheet"></link>
 <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 <link href="<c:url value='/static/css/jquery-ui.css' />"
 	rel="stylesheet"></link>
-<script type="text/javascript" src='${pageContext.request.contextPath}/static/js/jquery-3.1.0.min.js'></script>
-<script type="text/javascript" src='${pageContext.request.contextPath}/static/js/jquery-ui.js'></script>
+<script type="text/javascript"
+	src='${pageContext.request.contextPath}/static/js/jquery-3.1.0.min.js'></script>
+<script type="text/javascript"
+	src='${pageContext.request.contextPath}/static/js/jquery-ui.js'></script>
 <script>
-  $(document).ready(function() {
-    $("#dateOfBirth").datepicker({ dateFormat: 'dd/mm/yy' });
-  });
+	$(document).ready(function() {
+		$("#dateOfBirth").datepicker({
+			dateFormat : 'dd/mm/yy'
+		});
+	});
 </script>
 </head>
 
@@ -120,23 +125,21 @@
 				</div>
 			</div>
 
-<%-- 			<div class="row">
+			<div class="row">
 				<div class="form-group col-md-12">
-					<label class="col-md-3 control-lable" for="departments">Department</label>
+					<label class="col-md-3 control-lable" for="department">Department</label>
 					<div class="col-md-7">
-					<form:select path="departments">
-						<option value="-1">Select Department</option>
-						<c:forEach items="${departments}">
-							<option value="id">${department.name}</option>
-						</c:forEach>
-					</form:select>
+						<form:select path="department">
+							<form:options items="${departments}" itemValue="id"
+								itemLabel="name" />
+						</form:select>
 						<div class="has-error">
-							<form:errors path="departments" class="help-inline" />
+							<form:errors path="department" class="help-inline" />
 						</div>
 					</div>
 				</div>
-			</div> --%>
-			
+			</div>
+
 			<div class="row">
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="roles">Roles</label>

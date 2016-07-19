@@ -33,8 +33,8 @@ public class Department implements Serializable{
 	@Column(name="DESCRIPTION")
 	private String description;
 
-	@OneToMany(mappedBy="department")
-	private List<User> users;
+	//	@OneToMany(mappedBy="department")
+	//	private List<User> users;
 
 	public Integer getId() {
 		return id;
@@ -60,17 +60,17 @@ public class Department implements Serializable{
 		this.description = description;
 	}
 
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
+	//	public List<User> getUsers() {
+	//		return users;
+	//	}
+	//
+	//	public void setUsers(List<User> users) {
+	//		this.users = users;
+	//	}
 
 	public String toString(){
-		return "Department [id=" + id + ", name=" + name + ", description=" + description +"]\n" + 
-				"List of Employee in this department" + users.stream().map(User::getUsername).collect(Collectors.toList());
+		return "Department [id=" + id + ", name=" + name + ", description=" + description +"]\n";	 
+//				+ "List of Employee in this department" + users.stream().map(User::getUsername).collect(Collectors.toList());
 	}
 
 }
