@@ -71,6 +71,13 @@ public class AppController {
         return "userslist";
     }
     
+    @RequestMapping(value={"/{name}/list"}, method = RequestMethod.GET)
+    public String listUserUnderDepartment(@PathVariable String name, ModelMap model){
+    	List<User> users = departmentService.findUsersInDepartment(name);
+    	model.addAttribute("users", users);
+    	return "userlistDepartment";
+    }
+    
     /**
      * This method will provide the medium to add a new user.
      */

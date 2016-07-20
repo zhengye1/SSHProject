@@ -37,11 +37,10 @@ public class DepartmentDAOImpl extends AbstractDao<Integer, Department> implemen
 	@Override
 	public List<User> findUsers(String name) {
 		Department d = findByName(name);
-		// TODO Auto-generated method stub
-		String hql = "FROM DEPARTMENT D INNER JOIN USER U ON D.DEPID = U.DEPID WHERE D.DEPID = :depid";
-		Query q = (Query) getSession().createQuery(hql);
-		q.setParameter("depId", d.getId());
-		return (List<User>)q.getResultList();
+		Criteria crit = getSession().createCriteria(User.class);
+		Criteria depCrit = crit.createCriteria("department");
+		depCrit.add(Restrictions.eq("name", name));
+		return crit.list();
 	}
 
 	@SuppressWarnings("unchecked")
