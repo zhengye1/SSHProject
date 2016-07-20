@@ -1,9 +1,6 @@
 package com.vincent.SSHProject.dao;
 
 import java.util.List;
-
-import javax.persistence.Query;
-
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -36,7 +33,6 @@ public class DepartmentDAOImpl extends AbstractDao<Integer, Department> implemen
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findUsers(String name) {
-		Department d = findByName(name);
 		Criteria crit = getSession().createCriteria(User.class);
 		Criteria depCrit = crit.createCriteria("department");
 		depCrit.add(Restrictions.eq("name", name));

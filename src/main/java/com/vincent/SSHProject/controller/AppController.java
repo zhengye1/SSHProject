@@ -155,8 +155,6 @@ public class AppController {
             return "registration";
         }*/
  
- 
-        logger.info("From controller: User: {}", user);
         userService.updateUser(user);
  
         model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " updated successfully");
