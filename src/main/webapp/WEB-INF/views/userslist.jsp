@@ -45,7 +45,7 @@
 							<td width="20%">${user.lastName}</td>
 							<td width="25%">${user.email}</td>
 							<td width="15%">${user.username}</td>
-							<sec:authorize access="hasRole('ADMIN') or hasRole('LEADER')">
+							<sec:authorize access="hasRole('ADMIN') or hasRole('LEADER') or '${loggedinuser}' == '${user.username}'">
 								<td width="10%"><a
 									href="<c:url value='/edit-user-${user.username}' />"
 									class="btn btn-success custom-width">edit</a></td>

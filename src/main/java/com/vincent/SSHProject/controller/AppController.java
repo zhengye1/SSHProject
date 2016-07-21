@@ -1,4 +1,5 @@
 package com.vincent.SSHProject.controller;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
@@ -130,10 +132,18 @@ public class AppController {
     @RequestMapping(value = { "/edit-user-{username}" }, method = RequestMethod.GET)
     public String editUser(@PathVariable String username, ModelMap model) {
         User user = userService.findByUsername(username);
-        model.addAttribute("user", user);
-        model.addAttribute("edit", true);
-        model.addAttribute("loggedinuser", getPrincipal());
-        return "registration";
+        UserDetails currentUser = (UserDetails)getCurrentUser();
+        Collection<? extends GrantedAuthority> auth = currentUser.getAuthorities();
+        if(isRolePresent(auth, "ROLE_ADMIN") || isRolePresent(auth, "ROLE_LEADER")
+        		|| username.equals(currentUser.getUsername()) ){
+        	model.addAttribute("user", user);
+        	model.addAttribute("edit", true);
+        	model.addAttribute("loggedinuser", getPrincipal());
+        	return "registration";
+        }
+        else{
+        	return "redirect:/Access_Denied";
+        }
     }
     
     /**
@@ -225,7 +235,7 @@ public class AppController {
      */
     private String getPrincipal(){
         String userName = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Object principal = getCurrentUser();
  
         if (principal instanceof UserDetails) {
             userName = ((UserDetails)principal).getUsername();
@@ -234,7 +244,19 @@ public class AppController {
         }
         return userName;
     }
-     
+    
+    private Object getCurrentUser(){
+    	return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+    
+    private boolean isRolePresent(Collection<? extends GrantedAuthority> auth, String role){
+    	for (GrantedAuthority grantedAuthority : auth){
+    		if (grantedAuthority.getAuthority().equals(role)){
+    			return true;
+    		}
+    	}
+    	return false;
+    }
     /**
      * This method returns true if users is already authenticated [logged-in], else false.
      */
